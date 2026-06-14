@@ -1,0 +1,40 @@
+{
+  "name": "Demo Control",
+  "doctype": "DocType",
+  "module": "EPM",
+  "issingle": 1,
+  "istable": 0,
+  "engine": "InnoDB",
+  "description": "DO NOT MERGE TO MAIN — demo-only error injection toggle.",
+  "fields": [
+    {
+      "fieldname": "warning_html",
+      "fieldtype": "HTML",
+      "options": "<div style='padding:8px;background:#fff3cd;border:1px solid #ffe69c;border-radius:4px'><b>Demo only.</b> Injects deliberately-broken journals (tagged ERR-*) so the close assertion suite goes red. Not for production. This doctype must never be merged to main.</div>"
+    },
+    {
+      "fieldname": "inject_errors",
+      "fieldtype": "Check",
+      "label": "Inject Demo Errors",
+      "default": "0",
+      "description": "On = post tagged ERR-* mistake journals into epm_raw. Off = remove them."
+    },
+    {
+      "fieldname": "rebuild_on_toggle",
+      "fieldtype": "Check",
+      "label": "Rebuild after toggle",
+      "default": "1",
+      "description": "Enqueue a scoped dbt build so the assertions re-evaluate immediately."
+    },
+    {
+      "fieldname": "last_action",
+      "fieldtype": "Small Text",
+      "label": "Last Action",
+      "read_only": 1
+    }
+  ],
+  "permissions": [
+    {"role": "System Manager", "read": 1, "write": 1},
+    {"role": "EPM Admin", "read": 1, "write": 1}
+  ]
+}
